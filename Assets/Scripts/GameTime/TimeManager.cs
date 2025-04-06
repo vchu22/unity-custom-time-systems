@@ -1,6 +1,4 @@
-using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class TimeManager : MonoBehaviour
 {
@@ -26,10 +24,9 @@ public class TimeManager : MonoBehaviour
         // Invoke time progress every second
         InvokeRepeating(nameof(ProgressTime), 0, tickSeconds);
     }
-    public void TooglePause(Button btn)
+    public void TogglePause()
     {
         timePaused = !timePaused;
-        btn.GetComponentInChildren<TextMeshProUGUI>().text = timePaused? "Start": "Pause";
         if (timePaused)
         {
             CancelInvoke(nameof(ProgressTime));
@@ -68,4 +65,8 @@ public class TimeManager : MonoBehaviour
         // Trigger the MinuteChanged event
         OnMinuteChanged();
     }
+
+    // Getters and setters
+    public bool getPauseStatus() { return timePaused; }
+
 }

@@ -1,4 +1,6 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class TimeDisplay : MonoBehaviour
 {
@@ -10,6 +12,7 @@ public class TimeDisplay : MonoBehaviour
     public bool displayAM_PM = false;  // The format to display the time in (True if want to display time as 00:00 AM)
     public bool abbreviateDayOfWeek = false;
 
+    public Button pauseTimeButton;
     private TimeManager timeManager;
     private void Awake()
     {
@@ -48,5 +51,11 @@ public class TimeDisplay : MonoBehaviour
     {
         dayText.text = string.Format(dayFormatString, timeManager.currentTime.day);
         dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.dayOfWeek.ToString().Substring(0, 3) : timeManager.dayOfWeek.ToString();
+    }
+
+    public void ChangePauseButtonIcon()
+    {
+        pauseTimeButton.GetComponentInChildren<TextMeshProUGUI>().text = timeManager.getPauseStatus() ? "Pause" : "Start";
+        timeManager.TogglePause();
     }
 }
