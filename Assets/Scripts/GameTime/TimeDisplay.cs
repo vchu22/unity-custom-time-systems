@@ -35,8 +35,8 @@ public class TimeDisplay : MonoBehaviour
     {
         // Format and display the time in a readable format, e.g., "Day 1 - 12:00 PM"
         string period = "AM";
-        int currentHour = timeManager.currentTime.hour;
-        int currentMinute = timeManager.currentTime.minute;
+        int currentHour = timeManager.getCurrentHour();
+        int currentMinute = timeManager.getCurrentMinute();
 
         if (currentHour >= 12)
         {
@@ -49,8 +49,8 @@ public class TimeDisplay : MonoBehaviour
     // Update the UI text whenever the day changes
     private void UpdateDayDisplay()
     {
-        dayText.text = string.Format(dayFormatString, timeManager.currentTime.day);
-        dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.dayOfWeek.ToString().Substring(0, 3) : timeManager.dayOfWeek.ToString();
+        dayText.text = string.Format(dayFormatString, timeManager.getCurrentDay());
+        dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.getDayOfWeekString().Substring(0, 3) : timeManager.getDayOfWeekString();
     }
 
     public void ChangePauseButtonIcon()

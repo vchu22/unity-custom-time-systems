@@ -1,4 +1,5 @@
 using UnityEngine;
+public enum DayOfWeek { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
 
 public class TimeManager : MonoBehaviour
 {
@@ -7,10 +8,9 @@ public class TimeManager : MonoBehaviour
     public int minuteIncrements = 1; // Speed measured by how many in-game minutes should pass in 1 real world second (higher == faster)
 
     // Displayable time variables
-    public GameTime currentTime = new GameTime(); // Current in-game time
+    private GameTime currentTime = new GameTime(); // Current in-game time
 
-    public enum DayOfWeek { Sunday, Monday, Tuesday, Wednesday, Thursday, Friday, Saturday }
-    public DayOfWeek dayOfWeek = DayOfWeek.Sunday;
+    private DayOfWeek dayOfWeek = DayOfWeek.Sunday;
 
     // Events or functions to call when certain time milestones are reached
     public delegate void MinuteChanged();
@@ -68,5 +68,9 @@ public class TimeManager : MonoBehaviour
 
     // Getters and setters
     public bool getPauseStatus() { return timePaused; }
-
+    public int getCurrentMinute() { return currentTime.minute; }
+    public int getCurrentHour() { return currentTime.hour; }
+    public int getCurrentDay() { return currentTime.day; }
+    public DayOfWeek getDayOfWeek() { return dayOfWeek; }
+    public string getDayOfWeekString() { return dayOfWeek.ToString(); }
 }
