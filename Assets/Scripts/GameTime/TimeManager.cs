@@ -15,14 +15,11 @@ public class TimeManager : MonoBehaviour
     public DayOfWeek dayOfWeek = DayOfWeek.Sunday;
 
     // Events or functions to call when certain time milestones are reached
-    public delegate void MinuteChanged(int newHour);
-    public static event MinuteChanged OnMinuteChanged;
+    public delegate void MinuteChanged();
+    public event MinuteChanged OnMinuteChanged;
 
-    public delegate void HourChanged(int newHour);
-    public static event HourChanged OnHourChanged;
-
-    public delegate void DayChanged(int newDay);
-    public static event DayChanged OnDayChanged;
+    public delegate void DayChanged();
+    public event DayChanged OnDayChanged;
 
     private void Start()
     {
@@ -53,9 +50,6 @@ public class TimeManager : MonoBehaviour
         {
             int hourIncrements = currentTime.minute / 60;
             currentTime.minute = currentTime.minute % 60;
-            // Trigger the MinuteChanged event
-            if (OnMinuteChanged != null)
-                OnMinuteChanged(currentTime.minute);
 
             currentTime.hour += hourIncrements;
             if (currentTime.hour >= 24) // Reset to 0 if hour reaches 24 (next day)
@@ -68,14 +62,10 @@ public class TimeManager : MonoBehaviour
                 dayOfWeek = (DayOfWeek)((int)(dayOfWeek + dayIncrements) % 7);
 
                 // Trigger the DayChanged event
-                if (OnDayChanged != null)
-                    OnDayChanged(currentTime.day);
+                OnDayChanged();
             }
-
-            // Trigger the HourChanged event
-            if (OnHourChanged != null)
-                OnHourChanged(currentTime.hour);
         }
-
+        // Trigger the MinuteChanged event
+        OnMinuteChanged();
     }
 }
