@@ -8,6 +8,7 @@ public class TimeManager : MonoBehaviour
     public int minuteIncrements = 1; // Speed measured by how many in-game minutes should pass in 1 real world second (higher == faster)
 
     // Displayable time variables
+    [SerializeField]
     private GameTime currentTime = new GameTime(); // Current in-game time
 
     private DayOfWeek dayOfWeek = DayOfWeek.Sunday;
@@ -35,6 +36,17 @@ public class TimeManager : MonoBehaviour
         {
             InvokeRepeating(nameof(ProgressTime), 0, tickSeconds);
         }
+    }
+
+    // Load game time from save file
+    public void LoadTime(GameTime time)
+    {
+        currentTime.minute = time.minute;
+        currentTime.hour = time.hour;
+        currentTime.day = time.day;
+
+        OnMinuteChanged();
+        OnDayChanged();
     }
 
     // Coroutine to progress time

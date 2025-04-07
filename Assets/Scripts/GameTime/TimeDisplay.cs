@@ -58,4 +58,9 @@ public class TimeDisplay : MonoBehaviour
         pauseTimeButton.GetComponentInChildren<TextMeshProUGUI>().text = timeManager.getPauseStatus() ? "Pause" : "Start";
         timeManager.TogglePause();
     }
+    public void LoadSavedGameTime()
+    {
+        GameTime gameTime = new GameTime(2, 1, 32);
+        timeManager.LoadTime(gameTime);
+    }
 }
