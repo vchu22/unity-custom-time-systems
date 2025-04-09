@@ -5753,8 +5753,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2033284694}
-  - component: {fileID: 2033284700}
-  - component: {fileID: 2033284699}
   m_Layer: 0
   m_Name: Time
   m_TagString: Untagged
@@ -5777,47 +5775,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 1691737102}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &2033284699
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033284693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53ad9f23b2688324a8e88074a9770e30, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  timeOfDayText: {fileID: 0}
-  pauseTimeButton: {fileID: 0}
-  displayAM_PM: 0
-  dayText: {fileID: 0}
-  dayOfWeekText: {fileID: 0}
-  dayFormatString: Day {0}
-  abbreviateDayOfWeek: 0
---- !u!114 &2033284700
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2033284693}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc0122c96508e0a43916c99d0f7d8210, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  tickSeconds: 1
-  minuteIncrements: 1
-  currentTime:
-    minute: 0
-    hour: 0
-    day: 0
-  currentTime:
-    minute: 0
-    hour: 0
-    day: 0
 --- !u!1 &2051895023
 GameObject:
   m_ObjectHideFlags: 0

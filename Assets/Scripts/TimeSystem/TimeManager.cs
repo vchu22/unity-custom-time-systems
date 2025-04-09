@@ -1,20 +1,26 @@
+using System;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
 {
-    private bool timePaused = false;
-    public float tickSeconds = 1f;   // The time interval to call InvokeRepeating
-    public int minuteIncrements = 1; // Speed measured by how many in-game minutes should pass in 1 real world second (higher == faster)
-
+    protected bool timePaused = false;  // Whether the clock is paused
+    public float tickSeconds = 1f;   // The number of seconds for each InvokeRepeating
+    public int minuteIncrements = 1; // Speed measured by the number of in-game minutes a real world second is equal to (higher means faster)
+    
     // Displayable time variables
     [SerializeField]
-    private GameTime currentTime = new GameTime(); // Current in-game time
+    private GameDateTime currentTime = new GameDateTime(); // Current in-game time
+    public GameCalendar calendar;
+    int dayOfWeekIndex = 0;
 
     // Events or functions to call when certain time milestones are reached
     public delegate void MinuteChanged();
     public event MinuteChanged OnMinuteChanged;
 
-    private void Start()
+    public delegate void DayChanged();
+    public event DayChanged OnDayChanged;
+
+    protected void Start()
     {
         // Invoke time progress every second
         InvokeRepeating(nameof(ProgressTime), 0, tickSeconds);
@@ -33,7 +39,7 @@ public class TimeManager : MonoBehaviour
     }
 
     // Load game time from save file
-    public void LoadTime(GameTime time)
+    public void LoadTime(GameDateTime time)
     {
         currentTime.minute = time.minute;
         currentTime.hour = time.hour;
@@ -42,7 +48,7 @@ public class TimeManager : MonoBehaviour
     }
 
     // Coroutine to progress time
-    private void ProgressTime()
+    protected void ProgressTime()
     {
         currentTime.minute += minuteIncrements;  // Increase time based on the speed multiplier
 
@@ -53,6 +59,18 @@ public class TimeManager : MonoBehaviour
             currentTime.minute = currentTime.minute % 60;
 
             currentTime.hour += hourIncrements;
+            if (currentTime.hour >= 24) // Reset to 0 if hour reaches 24 (next day)
+            {
+                int dayIncrements = currentTime.hour / 24;
+                currentTime.hour = currentTime.hour % 24;
+                currentTime.day += dayIncrements;
+
+                // Update day of week
+                dayOfWeekIndex = ((int)(dayOfWeekIndex + dayIncrements) % calendar.daysOfWeek.Length);
+
+                // Trigger the DayChanged event
+                OnDayChanged();
+            }
         }
         // Trigger the MinuteChanged event
         OnMinuteChanged();
@@ -62,4 +80,5 @@ public class TimeManager : MonoBehaviour
     public bool getPauseStatus() { return timePaused; }
     public int getCurrentMinute() { return currentTime.minute; }
     public int getCurrentHour() { return currentTime.hour; }
+    public string getDayOfWeek() { return calendar.daysOfWeek[dayOfWeekIndex]; }
 }

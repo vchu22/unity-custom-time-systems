@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,24 +10,26 @@ public class TimeUI : MonoBehaviour
 
     public bool displayAM_PM = false;  // The format to display the time in (True if want to display time as 00:00 AM)
 
-    private TimeManager timeManager;
+    protected TimeManager timeManager;
 
-    private void Awake()
+    protected void Awake()
     {
         timeManager = GetComponent<TimeManager>();
     }
-    private void OnEnable()
+    protected void OnEnable()
     {
         timeManager.OnMinuteChanged += UpdateTimeDisplay;
+        timeManager.OnDayChanged += UpdateDayDisplay;
     }
 
-    private void OnDisable()
+    protected void OnDisable()
     {
         timeManager.OnMinuteChanged -= UpdateTimeDisplay;
+        timeManager.OnDayChanged += UpdateDayDisplay;
     }
 
     // Update the UI text whenever the time changes
-    private void UpdateTimeDisplay()
+    protected void UpdateTimeDisplay()
     {
         // Format and display the time in a readable format, e.g., "12:00 PM"
         string period = "AM";
@@ -40,7 +43,10 @@ public class TimeUI : MonoBehaviour
         }
         timeOfDayText.text = string.Format("{0:00}:{1:00}", currentHour, currentMinute) + (displayAM_PM ? " " + period : "");
     }
-
+    private void UpdateDayDisplay()
+    {
+        throw new NotImplementedException();
+    }
     public void ChangePauseButtonIcon()
     {
         pauseTimeButton.GetComponentInChildren<TextMeshProUGUI>().text = timeManager.getPauseStatus() ? "Pause" : "Start";
@@ -48,7 +54,7 @@ public class TimeUI : MonoBehaviour
     }
     public void LoadSavedGameTime()
     {
-        GameTime gameTime = new GameTime(2, 1, 32);
+        GameDateTime gameTime = new GameDateTime(2, 1, 32);
         timeManager.LoadTime(gameTime);
     }
 }

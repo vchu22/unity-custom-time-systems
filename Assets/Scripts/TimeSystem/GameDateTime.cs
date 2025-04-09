@@ -1,35 +1,41 @@
 [System.Serializable]
-public class GameDateTime : GameTime
+public class GameDateTime
 {
+    public int minute; // in-game minutes
+    public int hour; // in-game hour
+    public int day;  // in-game day
     public int month; // in-game month
     public int year; // in-game year
 
-    public GameCalendar calendar;
+    public GameDateTime() : this(0, 0) { }
 
-    public GameDateTime() : this(0,0,0) { }
+    public GameDateTime(int hour, int minute)
+    {
+        this.minute = minute;
+        this.hour = hour;
+    }
+
     public GameDateTime(int day, int hour, int minute)
     {
         this.minute = minute;
         this.hour = hour;
         this.day = day;
-        this.year = 0;
     }
 
-    public GameDateTime(int day, int hour, int minute, int year)
+    public GameDateTime(int month, int day, int hour, int minute)
     {
         this.minute = minute;
         this.hour = hour;
         this.day = day;
-        this.year = year;
-        calendar = new GameCalendar();
+        this.month = month;
     }
 
-    public string getMonth()
+    public GameDateTime(int year, int month, int day, int hour, int minute)
     {
-        if (calendar == null)
-        {
-            return null;
-        }
-        return calendar.getMonthString(day);
+        this.minute = minute;
+        this.hour = hour;
+        this.day = day;
+        this.month = month;
+        this.year = year;
     }
 }
