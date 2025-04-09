@@ -36,7 +36,7 @@ public class TimeUI : MonoBehaviour
         int currentHour = timeManager.getCurrentHour();
         int currentMinute = timeManager.getCurrentMinute();
 
-        if (currentHour >= 12)
+        if (displayAM_PM && currentHour >= 12)
         {
             currentHour = currentHour > 12 ? currentHour - 12 : 12;
             period = "PM";
