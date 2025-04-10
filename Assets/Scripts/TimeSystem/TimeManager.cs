@@ -6,7 +6,7 @@ public class TimeManager : MonoBehaviour
     protected bool timePaused = false;  // Whether the clock is paused
     public float tickSeconds = 1f;   // The number of seconds for each InvokeRepeating
     public int minuteIncrements = 1; // Speed measured by the number of in-game minutes a real world second is equal to (higher means faster)
-    
+
     // Displayable time variables
     [SerializeField]
     private GameDateTime currentTime = new GameDateTime(); // Current in-game time
@@ -80,5 +80,6 @@ public class TimeManager : MonoBehaviour
     public bool getPauseStatus() { return timePaused; }
     public int getCurrentMinute() { return currentTime.minute; }
     public int getCurrentHour() { return currentTime.hour; }
+    public int getCurrentDay() { return currentTime.day; }
     public string getDayOfWeek() { return calendar.daysOfWeek[dayOfWeekIndex]; }
 }

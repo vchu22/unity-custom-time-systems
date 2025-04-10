@@ -6,6 +6,9 @@ using UnityEngine.UI;
 public class TimeUI : MonoBehaviour
 {
     public TextMeshProUGUI timeOfDayText;  // Reference to a UI Text element that displays the time of a day
+    public TextMeshProUGUI dayText;  // Reference to a UI Text element that displays numbers of days passed or the day in a month
+    public bool abbreviateDayOfWeek;
+    public TextMeshProUGUI dayOfWeekText;  // Reference to a UI Text element that displays the day in the week
     public Button pauseTimeButton;
 
     public bool displayAM_PM = false;  // The format to display the time in (True if want to display time as 00:00 AM)
@@ -45,7 +48,8 @@ public class TimeUI : MonoBehaviour
     }
     private void UpdateDayDisplay()
     {
-        throw new NotImplementedException();
+        dayText.text = timeManager.getCurrentDay().ToString();
+        dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.getDayOfWeek().Substring(0, 3) : timeManager.getDayOfWeek();
     }
     public void ChangePauseButtonIcon()
     {

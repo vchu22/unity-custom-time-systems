@@ -2827,8 +2827,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2036819441}
-  - component: {fileID: 2036819443}
   - component: {fileID: 2036819442}
+  - component: {fileID: 2036819443}
   m_Layer: 0
   m_Name: Time
   m_TagString: Untagged
@@ -2884,6 +2884,43 @@ MonoBehaviour:
     minute: 0
     hour: 0
     day: 0
+    month: 0
+    year: 0
+  calendar:
+    monthsDays:
+    - name: January
+      numberOfDays: 31
+    - name: February
+      numberOfDays: 28
+    - name: March
+      numberOfDays: 31
+    - name: April
+      numberOfDays: 30
+    - name: May
+      numberOfDays: 31
+    - name: June
+      numberOfDays: 30
+    - name: July
+      numberOfDays: 31
+    - name: August
+      numberOfDays: 31
+    - name: September
+      numberOfDays: 30
+    - name: October
+      numberOfDays: 31
+    - name: November
+      numberOfDays: 30
+    - name: December
+      numberOfDays: 31
+    daysOfWeek:
+    - Sunday
+    - Monday
+    - Tuesday
+    - Wednesday
+    - Thursday
+    - Friday
+    - Saturday
+    daysIn1Year: 365
 --- !u!1 &2108706175
 GameObject:
   m_ObjectHideFlags: 0
