@@ -97,7 +97,13 @@ public class TimeManager : MonoBehaviour
             if (diff > 0)
                 currentTime.day = diff;
             else currentTime.day = 1;
-            currentTime.month += 1;
+            if (currentTime.month < calendar.monthsDays.Length - 1)
+                currentTime.month += 1;
+            else
+            {
+                currentTime.month = 0;
+                break;
+            }
         }
 
         // Trigger the MonthChanged event
