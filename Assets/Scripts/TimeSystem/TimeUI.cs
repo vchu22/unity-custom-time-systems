@@ -1,4 +1,3 @@
-using System;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,11 +8,13 @@ public class TimeUI : MonoBehaviour
     public TextMeshProUGUI dayText;  // Reference to a UI Text element that displays numbers of days passed or the day in a month
     public bool abbreviateDayOfWeek;
     public TextMeshProUGUI dayOfWeekText;  // Reference to a UI Text element that displays the day in the week
+    public TextMeshProUGUI monthText;
     public Button pauseTimeButton;
 
     public bool displayAM_PM = false;  // The format to display the time in (True if want to display time as 00:00 AM)
 
     protected TimeManager timeManager;
+    
 
     protected void Awake()
     {
@@ -23,12 +24,14 @@ public class TimeUI : MonoBehaviour
     {
         timeManager.OnMinuteChanged += UpdateTimeDisplay;
         timeManager.OnDayChanged += UpdateDayDisplay;
+        timeManager.OnMonthChanged += UpdateMonthDisplay;
     }
 
     protected void OnDisable()
     {
         timeManager.OnMinuteChanged -= UpdateTimeDisplay;
-        timeManager.OnDayChanged += UpdateDayDisplay;
+        timeManager.OnDayChanged -= UpdateDayDisplay;
+        timeManager.OnMonthChanged -= UpdateMonthDisplay;
     }
 
     // Update the UI text whenever the time changes
@@ -50,6 +53,10 @@ public class TimeUI : MonoBehaviour
     {
         dayText.text = timeManager.getCurrentDay().ToString();
         dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.getDayOfWeek().Substring(0, 3) : timeManager.getDayOfWeek();
+    }
+    private void UpdateMonthDisplay()
+    {
+        monthText.text = timeManager.getCurrentMonthString();
     }
     public void ChangePauseButtonIcon()
     {

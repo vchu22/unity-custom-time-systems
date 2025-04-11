@@ -1,4 +1,3 @@
-using System;
 using UnityEngine;
 
 public class TimeManager : MonoBehaviour
@@ -16,9 +15,10 @@ public class TimeManager : MonoBehaviour
     // Events or functions to call when certain time milestones are reached
     public delegate void MinuteChanged();
     public event MinuteChanged OnMinuteChanged;
-
     public delegate void DayChanged();
     public event DayChanged OnDayChanged;
+    public delegate void MonthChanged();
+    public event MonthChanged OnMonthChanged;
 
     protected void Start()
     {
@@ -68,6 +68,21 @@ public class TimeManager : MonoBehaviour
                 // Update day of week
                 dayOfWeekIndex = ((int)(dayOfWeekIndex + dayIncrements) % calendar.daysOfWeek.Length);
 
+                if (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
+                {
+                    while (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
+                    {
+                        int diff = currentTime.day - calendar.monthsDays[currentTime.month].numberOfDays;
+                        if (diff > 0)
+                            currentTime.day = diff;
+                        else currentTime.day = 1;
+                        currentTime.month += 1;
+                    }
+
+                    // Trigger the MonthChanged event
+                    OnMonthChanged();
+                }
+
                 // Trigger the DayChanged event
                 OnDayChanged();
             }
@@ -81,5 +96,20 @@ public class TimeManager : MonoBehaviour
     public int getCurrentMinute() { return currentTime.minute; }
     public int getCurrentHour() { return currentTime.hour; }
     public int getCurrentDay() { return currentTime.day; }
-    public string getDayOfWeek() { return calendar.daysOfWeek[dayOfWeekIndex]; }
+    public int getDayOfWeekIndex() { return dayOfWeekIndex; }
+    public string getDayOfWeek(bool abbreviate = false)
+    {
+        return abbreviate ? calendar.daysOfWeek[dayOfWeekIndex].Substring(0, 3) : calendar.daysOfWeek[dayOfWeekIndex];
+    }
+    public int getCurrentMonthIndex() { return currentTime.month; }
+    public string getCurrentMonthString(bool abbreviate = false)
+    {
+        if (calendar.monthsDays.Length > 0)
+        {
+            return abbreviate ? calendar.monthsDays[currentTime.month].name.Substring(0, 3) : calendar.monthsDays[currentTime.month].name;
+        }
+        return null;
+    }
+
+    public int getCurrentYear() { return currentTime.year; }
 }

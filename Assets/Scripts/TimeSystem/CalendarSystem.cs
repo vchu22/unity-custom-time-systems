@@ -6,7 +6,6 @@ public class GameCalendar
     // A list representing the months in a calendar year and their corresponding number of days
     public Month[] monthsDays;
     public string[] daysOfWeek = { "Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" };
-    public int daysIn1Year = 365;
 
     public GameCalendar() : this(CalendarSystem.Georgian) { }
     public GameCalendar(CalendarSystem calendarSystem, int daysInMonth = 30, int monthsInYear = 3)
@@ -33,7 +32,6 @@ public class GameCalendar
                 {
                     monthsDays[i] = new Month("", daysInMonth);
                 }
-                daysIn1Year = daysInMonth * monthsInYear;
                 break;
             default:
                 monthsDays = null;

@@ -3,7 +3,7 @@ public class GameDateTime
 {
     public int minute; // in-game minutes
     public int hour; // in-game hour
-    public int day;  // in-game day
+    public int day = 1;  // in-game day
     public int month; // in-game month
     public int year; // in-game year
 
