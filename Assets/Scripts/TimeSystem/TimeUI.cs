@@ -9,6 +9,7 @@ public class TimeUI : MonoBehaviour
     public bool abbreviateDayOfWeek;
     public TextMeshProUGUI dayOfWeekText;  // Reference to a UI Text element that displays the day in the week
     public TextMeshProUGUI monthText;
+    public TextMeshProUGUI yearText;
     public Button pauseTimeButton;
 
     public bool displayAM_PM = false;  // The format to display the time in (True if want to display time as 00:00 AM)
@@ -25,6 +26,7 @@ public class TimeUI : MonoBehaviour
         timeManager.OnMinuteChanged += UpdateTimeDisplay;
         timeManager.OnDayChanged += UpdateDayDisplay;
         timeManager.OnMonthChanged += UpdateMonthDisplay;
+        timeManager.OnYearChanged += UpdateYearDisplay;
     }
 
     protected void OnDisable()
@@ -32,6 +34,7 @@ public class TimeUI : MonoBehaviour
         timeManager.OnMinuteChanged -= UpdateTimeDisplay;
         timeManager.OnDayChanged -= UpdateDayDisplay;
         timeManager.OnMonthChanged -= UpdateMonthDisplay;
+        timeManager.OnYearChanged -= UpdateYearDisplay;
     }
 
     // Update the UI text whenever the time changes
@@ -58,9 +61,13 @@ public class TimeUI : MonoBehaviour
     {
         monthText.text = timeManager.getCurrentMonthString();
     }
+    private void UpdateYearDisplay()
+    {
+        yearText.text = timeManager.getCurrentYear().ToString();
+    }
     public void ChangePauseButtonIcon()
     {
-        pauseTimeButton.GetComponentInChildren<TextMeshProUGUI>().text = timeManager.getPauseStatus() ? "Pause" : "Start";
+        pauseTimeButton.GetComponentInChildren<TextMeshProUGUI>().text = timeManager.getPauseStatus() ? "Start" : "Pause";
         timeManager.TogglePause();
     }
     public void LoadSavedGameTime()

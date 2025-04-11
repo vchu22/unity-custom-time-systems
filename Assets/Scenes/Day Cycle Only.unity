@@ -338,9 +338,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: TimeDisplay, Assembly-CSharp
-        m_MethodName: ChangePauseButtonIcon
+      - m_Target: {fileID: 2036819443}
+        m_TargetAssemblyTypeName: TimeManager, Assembly-CSharp
+        m_MethodName: TogglePause
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2864,6 +2864,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   timeOfDayText: {fileID: 253638505}
+  dayText: {fileID: 0}
+  abbreviateDayOfWeek: 0
+  dayOfWeekText: {fileID: 0}
+  monthText: {fileID: 0}
+  yearText: {fileID: 0}
   pauseTimeButton: {fileID: 278901902}
   displayAM_PM: 0
 --- !u!114 &2036819443
@@ -2920,7 +2925,6 @@ MonoBehaviour:
     - Thursday
     - Friday
     - Saturday
-    daysIn1Year: 365
 --- !u!1 &2108706175
 GameObject:
   m_ObjectHideFlags: 0

@@ -19,6 +19,8 @@ public class TimeManager : MonoBehaviour
     public event DayChanged OnDayChanged;
     public delegate void MonthChanged();
     public event MonthChanged OnMonthChanged;
+    public delegate void YearChanged();
+    public event YearChanged OnYearChanged;
 
     protected void Start()
     {
@@ -91,23 +93,30 @@ public class TimeManager : MonoBehaviour
     }
     private void IncrementMonth()
     {
+        int monthIncrements = 0;
         while (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
         {
             int diff = currentTime.day - calendar.monthsDays[currentTime.month].numberOfDays;
             if (diff > 0)
                 currentTime.day = diff;
             else currentTime.day = 1;
-            if (currentTime.month < calendar.monthsDays.Length - 1)
+            if (currentTime.month < calendar.monthsDays.Length - 1){
+                monthIncrements++;
                 currentTime.month += 1;
+            }
             else
             {
+                IncrementYear(monthIncrements / calendar.monthsDays.Length + 1);
                 currentTime.month = 0;
                 break;
             }
         }
-
-        // Trigger the MonthChanged event
         OnMonthChanged();
+    }
+    private void IncrementYear(int yearIncrements)
+    {
+        currentTime.year += yearIncrements;
+        OnYearChanged();
     }
     // Getters and setters
     public bool getPauseStatus() { return timePaused; }
