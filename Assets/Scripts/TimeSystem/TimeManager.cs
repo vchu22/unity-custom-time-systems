@@ -50,47 +50,59 @@ public class TimeManager : MonoBehaviour
     // Coroutine to progress time
     protected void ProgressTime()
     {
+        IncrementMinute();
+    }
+    // Increment time units
+    private void IncrementMinute()
+    {
         currentTime.minute += minuteIncrements;  // Increase time based on the speed multiplier
 
         // Check if an hour has passed
-        if (currentTime.minute >= 60) // 60 minutes = 1 hour
+        if (currentTime.minute >= 60)
         {
-            int hourIncrements = currentTime.minute / 60;
-            currentTime.minute = currentTime.minute % 60;
-
-            currentTime.hour += hourIncrements;
-            if (currentTime.hour >= 24) // Reset to 0 if hour reaches 24 (next day)
-            {
-                int dayIncrements = currentTime.hour / 24;
-                currentTime.hour = currentTime.hour % 24;
-                currentTime.day += dayIncrements;
-
-                // Update day of week
-                dayOfWeekIndex = ((int)(dayOfWeekIndex + dayIncrements) % calendar.daysOfWeek.Length);
-
-                if (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
-                {
-                    while (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
-                    {
-                        int diff = currentTime.day - calendar.monthsDays[currentTime.month].numberOfDays;
-                        if (diff > 0)
-                            currentTime.day = diff;
-                        else currentTime.day = 1;
-                        currentTime.month += 1;
-                    }
-
-                    // Trigger the MonthChanged event
-                    OnMonthChanged();
-                }
-
-                // Trigger the DayChanged event
-                OnDayChanged();
-            }
+            IncrementHour();
         }
-        // Trigger the MinuteChanged event
         OnMinuteChanged();
     }
+    private void IncrementHour() {
+        int hourIncrements = currentTime.minute / 60;
+        currentTime.minute = currentTime.minute % 60;
+        currentTime.hour += hourIncrements;
 
+        if (currentTime.hour >= 24)
+        {
+            IncrementDay();
+        }
+    }
+    private void IncrementDay()
+    {
+        int dayIncrements = currentTime.hour / 24;
+        currentTime.hour = currentTime.hour % 24;
+        currentTime.day += dayIncrements;
+
+        // Update day of week
+        dayOfWeekIndex = ((int)(dayOfWeekIndex + dayIncrements) % calendar.daysOfWeek.Length);
+
+        if (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
+        {
+            IncrementMonth();
+        }
+        OnDayChanged();
+    }
+    private void IncrementMonth()
+    {
+        while (currentTime.day > calendar.monthsDays[currentTime.month].numberOfDays)
+        {
+            int diff = currentTime.day - calendar.monthsDays[currentTime.month].numberOfDays;
+            if (diff > 0)
+                currentTime.day = diff;
+            else currentTime.day = 1;
+            currentTime.month += 1;
+        }
+
+        // Trigger the MonthChanged event
+        OnMonthChanged();
+    }
     // Getters and setters
     public bool getPauseStatus() { return timePaused; }
     public int getCurrentMinute() { return currentTime.minute; }
