@@ -66,20 +66,21 @@ public class TimeManager : MonoBehaviour
         }
         OnMinuteChanged();
     }
-    private void IncrementHour() {
-        int hourIncrements = currentTime.minute / 60;
-        currentTime.minute = currentTime.minute % 60;
+    private void IncrementHour()
+    {
+        int hourIncrements = currentTime.minute / calendar.maxMinutesInHour;
+        currentTime.minute = currentTime.minute % calendar.maxMinutesInHour;
         currentTime.hour += hourIncrements;
 
-        if (currentTime.hour >= 24)
+        if (currentTime.hour >= calendar.maxHoursInDay)
         {
             IncrementDay();
         }
     }
     private void IncrementDay()
     {
-        int dayIncrements = currentTime.hour / 24;
-        currentTime.hour = currentTime.hour % 24;
+        int dayIncrements = currentTime.hour / calendar.maxHoursInDay;
+        currentTime.hour = currentTime.hour % calendar.maxHoursInDay;
         currentTime.day += dayIncrements;
 
         // Update day of week
@@ -100,7 +101,8 @@ public class TimeManager : MonoBehaviour
             if (diff > 0)
                 currentTime.day = diff;
             else currentTime.day = 1;
-            if (currentTime.month < calendar.monthsDays.Length - 1){
+            if (currentTime.month < calendar.monthsDays.Length - 1)
+            {
                 monthIncrements++;
                 currentTime.month += 1;
             }

@@ -45,9 +45,9 @@ public class TimeUI : MonoBehaviour
         int currentHour = timeManager.getCurrentHour();
         int currentMinute = timeManager.getCurrentMinute();
 
-        if (displayAM_PM && currentHour >= 12)
+        if (displayAM_PM && currentHour >= timeManager.calendar.maxHoursInDay)
         {
-            currentHour = currentHour > 12 ? currentHour - 12 : 12;
+            currentHour = currentHour > timeManager.calendar.maxHoursInDay ? currentHour - timeManager.calendar.maxHoursInDay : timeManager.calendar.maxHoursInDay;
             period = "PM";
         }
         timeOfDayText.text = string.Format("{0:00}:{1:00}", currentHour, currentMinute) + (displayAM_PM ? " " + period : "");
