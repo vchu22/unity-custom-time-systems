@@ -124,7 +124,7 @@ public class TimeManager : MonoBehaviour
     public int getCurrentHour() { return currentTime.hour; }
     public int getCurrentDay() { return currentTime.day; }
     public int getDayOfWeekIndex() { return dayOfWeekIndex; }
-    public string getDayOfWeek(bool abbreviate = false)
+    public string getDayOfWeekString(bool abbreviate = false)
     {
         return abbreviate ? calendar.daysOfWeek[dayOfWeekIndex].Substring(0, 3) : calendar.daysOfWeek[dayOfWeekIndex];
     }

@@ -55,7 +55,7 @@ public class TimeUI : MonoBehaviour
     private void UpdateDayDisplay()
     {
         dayText.text = timeManager.getCurrentDay().ToString();
-        dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.getDayOfWeek().Substring(0, 3) : timeManager.getDayOfWeek();
+        dayOfWeekText.text = abbreviateDayOfWeek ? timeManager.getDayOfWeekString().Substring(0, 3) : timeManager.getDayOfWeekString();
     }
     private void UpdateMonthDisplay()
     {
