@@ -1,2 +1,2 @@
 # Unity Custom Time Systems
-A library that enables developers to implement custom calendar and time systems for games featuring time mechanics.
+A library that enables developers to implement time mechanics that uses custom calendar and time systems.
